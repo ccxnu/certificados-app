@@ -38,7 +38,7 @@ export default function CertificadoPage() {
 
   return (
     <main className="flex flex-col justify-center text-center mt-40 max-w-3xl mx-auto">
-      <div className="max-w-sm text-left mx-auto bg-white border border-gray-200 rounded-lg shadow ">
+      <article className="max-w-sm text-left mx-auto bg-white border border-gray-200 rounded-lg shadow ">
         <div className="m-5">
           <h4 className="mb-2 text-2xl text-center font-bold tracking-tight text-gray-900">
             Certificado
@@ -64,7 +64,7 @@ export default function CertificadoPage() {
             alt="Certificado de validación"
           />
         </div>
-      </div>
+      </article>
     </main>
   );
 }
