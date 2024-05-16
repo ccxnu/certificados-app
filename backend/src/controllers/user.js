@@ -1,46 +1,60 @@
 import QRCode from "qrcode";
-import { CertModel } from "../models/cert.js";
-import { generatePdf } from "../middlewares/generatePdf.js";
+import { generatePdf } from "../services/generatePdf.js";
+import "dotenv/config";
 
-export class certController {
-  static async getAll(_, res) {
+const URI = process.env.QR_URI;
+
+export class UserController {
+  constructor({ userModel }) {
+    this.userModel = userModel;
+  }
+
+  getAll = async (_, res) => {
     try {
-      const certificados = await CertModel.getCertAll();
-      res.status(200).json(certificados);
+      const users = await this.userModel.getUserAll();
+      res.status(200).json(users);
     } catch (error) {
       return res
         .status(500)
         .json({ message: "Algo ha ocurrido al buscar los certificados." });
     }
-  }
+  };
 
-  static async getById(req, res) {
+  getById = async (req, res) => {
     const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "El id es requerido." });
+    }
+
     try {
-      const certificadoById = await CertModel.getCertById({ id });
-      res.status(200).json(certificadoById);
+      const user = await this.userModel.getUserById({ id });
+      if (!user) {
+        return res.status(404).json({ message: "El usuario no existe." });
+      }
+      res.status(200).json(user);
     } catch (error) {
       res.status(500).json({
         message: "Algo ha ocurrido al buscar el certificado por id.",
       });
     }
-  }
+  };
 
-  static async getQr(req, res) {
+  getQr = async (req, res) => {
     const { id } = req.params;
-    const qrData = `http://localhost:4000/validation/certificados/` + id;
+    const qrData = `${URI}/validation/certificados/` + id;
 
     try {
       const qrCodeData = await QRCode.toDataURL(qrData);
-      res.status(200).json(qrCodeData);
+      res.status(200).send(qrCodeData);
     } catch (error) {
       return res
         .status(500)
         .json({ message: "Algo ha ocurrido al generar el qr." });
     }
-  }
+  };
 
-  static async getPdf(req, res) {
+  getPdf = async (req, res) => {
     const { nombre, apellido, saldo, qrcode } = req.body;
 
     try {
@@ -51,7 +65,7 @@ export class certController {
         .status(500)
         .json({ message: "Algo ha ocurrido al generar el pdf." });
     }
-  }
+  };
 
   /*static async create(req, res) {
     try {

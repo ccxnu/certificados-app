@@ -14,7 +14,7 @@ La API proporciona las siguientes rutas:
     GET /api/users - Obtiene todos los usuarios.
     GET /api/user/:userId - Obtiene un usuario específico por su ID.
     GET /api/user/:userId/qr - Genera y devuelve el código QR para un usuario específico.
-    POST /api/user/:userId/pdf - Genera y devuelve el certificado PDF para un usuario específico.
+    POST /api/user/pdf - Genera y devuelve el certificado PDF para un usuario específico.
 
 ### Tecnologías Utilizadas
 

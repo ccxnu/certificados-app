@@ -1,15 +1,13 @@
+GET http://localhost:3000/api/user
+###
+
+GET http://localhost:3000/api/user/8
+###
+
 GET http://localhost:3000/api/user/1/qr
-
-###
-GET http://localhost:3000/api/user/1
-
 ###
 
-GET http://localhost:3000/api/user/1/pdf
-
-###
-
-POST http://localhost:3000/api/user/1/pdf
+POST http://localhost:3000/api/user/pdf
 Content-Type: application/json
 
 {

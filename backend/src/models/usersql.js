@@ -1,15 +1,16 @@
 import mysql from "mysql2/promise";
+import "dotenv/config";
 
 const connection = await mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  port: 3306,
-  password: "root",
-  database: "certikke",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  port: process.env.DB_PORT,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-export class CertModel {
-  static async getCertAll() {
+export class UserModel {
+  static async getUserAll() {
     const [certs] = await connection.query(`
     SELECT id, nombre, apellido, saldo FROM certificados
      ORDER BY id ASC
@@ -18,7 +19,7 @@ export class CertModel {
     return certs;
   }
 
-  static async getCertById({ id }) {
+  static async getUserById({ id }) {
     const [cert] = await connection.query(
       `SELECT id, nombre, apellido, saldo FROM certificados WHERE id = ?`,
       [id],
