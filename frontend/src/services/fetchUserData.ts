@@ -3,6 +3,7 @@ import { type User } from "../type";
 
 type SetUserFunction = (user: User | null) => void;
 type SetQrCodeUrlFunction = (url: string) => void;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchUserData = async (
   userId: string,
@@ -10,14 +11,15 @@ export const fetchUserData = async (
   setQrCodeUrl: SetQrCodeUrlFunction,
 ) => {
   try {
-    const userResponse = await axios.get<User>(
-      `http://localhost:3000/api/user/${userId}`,
-    );
-    const qrResponse = await axios.get<string>(
-      `http://localhost:3000/api/user/${userId}/qr`,
-    );
-    setUser(userResponse.data);
-    setQrCodeUrl(qrResponse.data);
+    const userResponse = await axios
+      .get<User>(`${API_URL}/user/${userId}`)
+      .then((response) => response.data);
+    const qrResponse = await axios
+      .get<string>(`${API_URL}/user/${userId}/qr`)
+      .then((response) => response.data);
+
+    setUser(userResponse);
+    setQrCodeUrl(qrResponse);
   } catch (error) {
     console.error("Error fetching data:", error);
   }

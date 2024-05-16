@@ -8,7 +8,7 @@ export default function UserPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/user")
+      .get(`${import.meta.env.VITE_API_URL}/user`)
       .then((response) => {
         setUsers(response.data);
       })
@@ -18,7 +18,7 @@ export default function UserPage() {
   }, []);
 
   return (
-    <main className="flex flex-col justify-center text-center mt-40 max-w-3xl mx-auto">
+    <main className="flex flex-col justify-center text-center mt-20 max-w-3xl mx-auto">
       <h1 className="text-xl font-bold pb-10">
         Página de certificados de Usuario
       </h1>
@@ -46,7 +46,7 @@ export default function UserPage() {
                 >
                   {user.nombre} {user.apellido}
                 </th>
-                <td className="px-6 py-4">{user.saldo}</td>
+                <td className="px-6 py-4">$ {user.saldo}</td>
                 <td className="px-6 py-4">
                   <Link
                     to={`/certificados/${user.id}`}

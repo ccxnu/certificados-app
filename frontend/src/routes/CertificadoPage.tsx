@@ -20,10 +20,10 @@ export default function CertificadoPage() {
 
   // Post user data and QR code URL to generate PDF
   useEffect(() => {
-    if (userId && user && qrCode) {
-      fetchPdf(userId, user, qrCode, setPdf);
+    if (user && qrCode) {
+      fetchPdf(user, qrCode, setPdf);
     }
-  }, [userId, user, qrCode]);
+  }, [user, qrCode]);
 
   // Generate PDF and download it
   useEffect(() => {
@@ -33,7 +33,11 @@ export default function CertificadoPage() {
   }, [userId, pdf]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <main className="flex flex-col justify-center text-center mt-40 max-w-3xl mx-auto">
+        <div className="text-xl text-gray-900">Loading...</div>
+      </main>
+    );
   }
 
   return (
