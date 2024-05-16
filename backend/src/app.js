@@ -4,7 +4,7 @@ import { createUserRouter } from "./routes/user.js";
 import "dotenv/config";
 import { ErrorHandler } from "./middlewares/errorHandler.js";
 
-const URI = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 export const createApp = ({ userModel }) => {
   const app = express();
@@ -18,7 +18,7 @@ export const createApp = ({ userModel }) => {
 
   app.use(ErrorHandler);
 
-  app.listen(URI, () => {
-    console.log(`🚀 Server is running on port ${URI}`);
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
   });
 };
